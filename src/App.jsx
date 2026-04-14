@@ -15,7 +15,7 @@ const BLOCKS = {
   B: {
     label: 'B Block',
     floors: [
-      { id: 'basement', label: 'B', fullLabel: 'Basement', svg: '/B-Block_basement.svg' },
+      { id: 'basement', label: 'B', fullLabel: 'Basement', svg: '/B Block - Basement-1.svg' },
       { id: 'ground',   label: 'G', fullLabel: 'Ground',   svg: '/B-block-groundfloor.svg' },
       { id: 'first',    label: '1', fullLabel: '1st Floor', svg: '/B-block-firstfloor.svg' },
       { id: 'second',   label: '2', fullLabel: '2nd Floor', svg: '/B-block-secondfloor.svg' },
