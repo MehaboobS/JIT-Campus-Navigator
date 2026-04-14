@@ -173,21 +173,21 @@ export default function App() {
   const changeFloor = idx => { if (idx !== safeFloor) { setFloorIdx(idx); setIsLoading(true) } }
 
   return (
-    <div style={{ display:'flex', flexDirection:'column', height:'100vh', width:'100vw', overflow:'hidden' }}>
+    <div className="app-shell">
 
       {/* HEADER */}
-      <header className="glass" style={{ zIndex:30, flexShrink:0, height:58, display:'flex', alignItems:'center', justifyContent:'space-between', padding:'0 16px', borderTop:'none',borderLeft:'none',borderRight:'none',borderBottom:'1px solid var(--border)' }}>
+      <header className="glass app-header" style={{ borderTop:'none',borderLeft:'none',borderRight:'none',borderBottom:'1px solid var(--border)' }}>
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           <div style={{ width:34,height:34,borderRadius:9,background:'linear-gradient(135deg,var(--accent) 0%,#005580 100%)',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 0 14px rgba(0,217,245,0.35)',flexShrink:0 }}>
             <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2L18 7V13L10 18L2 13V7Z" stroke="#000" strokeWidth="1.5"/><circle cx="10" cy="10" r="2.5" fill="#000"/></svg>
           </div>
           <div>
             <div style={{ fontFamily:'Syne', fontWeight:800, fontSize:15, letterSpacing:'0.05em', lineHeight:1.1 }}>CAMPUS <span style={{color:'var(--accent)'}}>MAP</span></div>
-            <div style={{ fontSize:10, color:'var(--text-muted)', letterSpacing:'0.08em' }}>INTERACTIVE NAVIGATOR</div>
+            <div className="header-subtitle" style={{ fontSize:10, color:'var(--text-muted)', letterSpacing:'0.08em' }}>INTERACTIVE NAVIGATOR</div>
           </div>
         </div>
 
-        <div style={{ display:'flex', gap:6 }}>
+        <div className="block-switch" style={{ display:'flex', gap:6 }}>
           {Object.keys(BLOCKS).map(b => (
             <button key={b} onClick={() => changeBlock(b)} style={{ padding:'6px 14px', borderRadius:8, fontFamily:'Syne', fontWeight:700, fontSize:13, letterSpacing:'0.05em', cursor:'pointer', border:'1.5px solid', borderColor:block===b?'var(--accent)':'var(--border)', background:block===b?'var(--accent)':'rgba(255,255,255,0.03)', color:block===b?'#000':'var(--text-muted)', boxShadow:block===b?'0 0 14px rgba(0,217,245,0.3)':'none', transition:'all 0.18s' }}>
               {BLOCKS[b].label}
@@ -201,10 +201,10 @@ export default function App() {
       </header>
 
       {/* CONTENT */}
-      <div style={{ flex:1, display:'flex', position:'relative', overflow:'hidden' }}>
+      <div className="app-main" style={{ display:'flex', position:'relative', overflow:'hidden' }}>
 
         {/* Sidebar – floor selector */}
-        <aside className="glass" style={{ width:68, flexShrink:0, zIndex:20, borderRight:'1px solid var(--border)', borderTop:'none',borderBottom:'none',borderLeft:'none', display:'flex',flexDirection:'column',alignItems:'center',padding:'14px 0',gap:6 }}>
+        <aside className="glass floor-sidebar" style={{ flexShrink:0, zIndex:20, borderRight:'1px solid var(--border)', borderTop:'none',borderBottom:'none',borderLeft:'none', display:'flex',flexDirection:'column',alignItems:'center',padding:'14px 0',gap:6 }}>
           <div style={{ fontSize:9, color:'var(--text-muted)', fontFamily:'Syne', fontWeight:700, letterSpacing:'0.12em', writingMode:'vertical-rl', transform:'rotate(180deg)', marginBottom:8 }}>LEVEL</div>
           <div style={{ flex:1, display:'flex', flexDirection:'column', gap:5, justifyContent:'center', alignItems:'center' }}>
             {[...floors].reverse().map((f, ri) => {
@@ -230,11 +230,11 @@ export default function App() {
         </aside>
 
         {/* Map area */}
-        <div style={{ flex:1, position:'relative', overflow:'hidden' }}>
+        <div className="map-panel" style={{ flex:1, position:'relative', overflow:'hidden' }}>
           <MapViewport svgSrc={floor.svg} resetToken={mapResetToken} isLoading={isLoading} setIsLoading={setIsLoading} />
 
           {/* Location badge */}
-          <div className="glass" style={{ position:'absolute',bottom:72,left:14,padding:'7px 13px',borderRadius:9,zIndex:20,display:'flex',alignItems:'center',gap:7 }}>
+          <div className="glass" style={{ position:'absolute',bottom:14,left:14,padding:'7px 13px',borderRadius:9,zIndex:20,display:'flex',alignItems:'center',gap:7 }}>
             <div style={{ width:7,height:7,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 7px var(--accent)' }} />
             <span style={{ fontFamily:'Syne',fontWeight:600,fontSize:11,letterSpacing:'0.06em' }}>
               {currentBlock.label} <span style={{color:'var(--text-muted)',fontWeight:400,margin:'0 2px'}}>·</span> {floor.fullLabel}
@@ -242,7 +242,7 @@ export default function App() {
           </div>
 
           {/* Zoom controls */}
-          <div className="glass" style={{ position:'absolute',bottom:72,right:14,zIndex:20,borderRadius:10,overflow:'hidden',display:'flex',flexDirection:'column' }}>
+          <div className="glass" style={{ position:'absolute',bottom:14,right:14,zIndex:20,borderRadius:10,overflow:'hidden',display:'flex',flexDirection:'column' }}>
             {[
               { lbl:'+', fn:() => window.__mapZoom?.in(), tip:'Zoom In' },
               { lbl:'−', fn:() => window.__mapZoom?.out(), tip:'Zoom Out' },
@@ -281,7 +281,7 @@ export default function App() {
       </div>
 
       {/* FOOTER – floor tabs */}
-      <footer className="glass" style={{ zIndex:30,flexShrink:0,height:52,display:'flex',alignItems:'center',padding:'0 14px',gap:8,borderTop:'1px solid var(--border)',borderBottom:'none',borderLeft:'none',borderRight:'none',overflowX:'auto' }}>
+      <footer className="glass app-footer" style={{ borderTop:'1px solid var(--border)',borderBottom:'none',borderLeft:'none',borderRight:'none' }}>
         <div style={{ display:'flex',gap:5,flex:1 }}>
           {floors.map((f,idx) => {
             const active = safeFloor === idx

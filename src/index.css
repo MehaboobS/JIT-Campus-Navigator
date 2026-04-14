@@ -28,6 +28,78 @@ html, body, #root {
   -webkit-tap-highlight-color: transparent;
 }
 
+.app-shell {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.app-header {
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 58px;
+  padding: calc(env(safe-area-inset-top) + 8px) 14px 8px;
+}
+
+.app-main {
+  min-height: 0;
+}
+
+.map-panel {
+  min-width: 0;
+  min-height: 0;
+}
+
+.floor-sidebar {
+  width: 68px;
+}
+
+.app-footer {
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 6px 14px calc(env(safe-area-inset-bottom) + 6px);
+  overflow-x: auto;
+}
+
+.block-switch {
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.block-switch::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header-subtitle {
+    display: none;
+  }
+
+  .floor-sidebar {
+    width: 58px;
+  }
+
+  .app-header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .app-footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .map-viewport {
   position: relative;
   width: 100%;
