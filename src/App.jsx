@@ -15,7 +15,8 @@ const BLOCKS = {
   B: {
     label: 'B Block',
     floors: [
-      { id: 'basement', label: 'B', fullLabel: 'Basement', svg: '/B Block - Basement-1.svg' },
+      { id: 'basement-2', label: 'B2', fullLabel: 'Basement 2', svg: '/B-Block_basement.svg' },
+      { id: 'basement-1', label: 'B1', fullLabel: 'Basement 1', svg: '/B Block - Basement-1.svg' },
       { id: 'ground',   label: 'G', fullLabel: 'Ground',   svg: '/B-block-groundfloor.svg' },
       { id: 'first',    label: '1', fullLabel: '1st Floor', svg: '/B-block-firstfloor.svg' },
       { id: 'second',   label: '2', fullLabel: '2nd Floor', svg: '/B-block-secondfloor.svg' },
@@ -164,10 +165,15 @@ export default function App() {
   const safeFloor = Math.min(floorIdx, floors.length - 1)
   const floor = floors[safeFloor]
   const mapResetToken = `${block}-${floor.id}`
+  const getDefaultFloorIndex = blockKey => {
+    const blockFloors = BLOCKS[blockKey].floors
+    const groundIndex = blockFloors.findIndex(f => f.id === 'ground')
+    return groundIndex >= 0 ? groundIndex : 0
+  }
 
   const changeBlock = b => {
     setBlock(b)
-    setFloorIdx(prev => Math.min(prev, BLOCKS[b].floors.length - 1))
+    setFloorIdx(getDefaultFloorIndex(b))
     setIsLoading(true)
   }
   const changeFloor = idx => { if (idx !== safeFloor) { setFloorIdx(idx); setIsLoading(true) } }
